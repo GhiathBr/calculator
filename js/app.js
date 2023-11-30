@@ -11,9 +11,10 @@ function act(a) {
     switch (a) {
         case "ac":
             f = "";
+            t="";
             console.log(f);
-            document.getElementById("res").value=f;
-            document.getElementById("top")=""
+            document.getElementById("top").value="";
+            document.getElementById("res").value="";
             return f;
         case "pm":
             
@@ -29,6 +30,13 @@ function act(a) {
         case "%":
             if (f[f.length - 1]!=="%"){
                 f=f+"%"
+                f=f.slice(0,-1);
+                f=Number(f);
+                f=f/100;
+                document.getElementById("top").value=f;
+                document.getElementById("res").value="";
+          
+
                 break;
             }
             console.log(f);
@@ -38,33 +46,36 @@ function act(a) {
 
 }
 function op(x){
- s=Number(f);
+ 
 t=document.getElementById("top").value;
 switch(x){
 
 
 case "+":
-    t=t+s;
+    
     f=f+"+"
-    document.getElementById("top").value=f;
-    console.log("t=",t); 
+    document.getElementById("top").value=t+f;
+    document.getElementById("res").value="";
+    
     console.log("f=",f); 
     break;
     
 case("x"):
-t=t*s;
+
 f=f+"x"
-document.getElementById("top").value=f;
-console.log("t=",t); 
+document.getElementById("top").value=t+f;
+document.getElementById("res").value="";
+
     console.log("f=",f); 
 break;
 
 
 case "-":
-    t=t-s;
+    
     f=f+"-"
-    document.getElementById("top").value=f;
-    console.log("t=",t); 
+    document.getElementById("top").value=t+f;
+    document.getElementById("res").value="";
+   
     console.log("f=",f); 
     break;
   
@@ -73,23 +84,50 @@ case "-":
 
     case "/":
     
-    f=f+"/"
-    document.getElementById("top").value=f;
-    console.log("t=",t); 
+    f=f+"/";
+    document.getElementById("top").value=t+f;
+    document.getElementById("res").value="";
+    
     console.log("f=",f); 
     break;
     
     case "=":
-     k=document.getElementById("top").value=t+numbers(x);
-     k=k.slice(0,-1);
-     
-     
-     console.log(t); 
-     console.log(k);
-     break
-}
-f="";
-document.getElementById("res")="";
+       t=t+numbers(x);
+       t=t.slice(0,-1);
+     document.getElementById("top").value=t;
+     document.getElementById("res").value=""
+     console.log("t after slicing the =",t);
+     p = t.search(/[+\-x/]/);
+     r=t.substring(0,p);
+     r=Number(r);
+     o=t[p];
+     b=t.substring(p+1);
+     b=Number(b);
 
+     console.log(p) ;
+     console.log(r) ;
+     console.log(o) ;
+     console.log(b) ;
+     switch(o){
+        case("x"):
+        document.getElementById("top").value=r*b;
+        break;
+        case("+"):
+        document.getElementById("top").value=r+b;
+        break;
+        case("-"):
+        document.getElementById("top").value=r-b;
+        break;
+        case("/"):
+        document.getElementById("top").value=r/b;
+        break
+        
+        
+        }
+     break;
+}
+
+
+f="";
 console.log("f=",f); 
 }
